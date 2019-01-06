@@ -32,6 +32,7 @@ import gzip
 import bz2
 import zipfile
 import time
+import collections
 
 from Bio import SeqIO
 
@@ -153,7 +154,7 @@ def main():
     else:
         outfileobj = open(args.outfile_name, 'w')
 
-    d = {}
+    d = collections.OrderedDict()
     for file in args.files:
         
         try:
@@ -168,17 +169,17 @@ def main():
             if seq not in d:
                 d[seq] = id
                 
-    d2 = {y:x for x,y in d.items()}
-    ids = list(d2.keys())
-    ids.sort()
+    #d2 = {y:x for x,y in d.items()}
+    #ids = list(d2.keys())
+    #ids.sort()
     
     # For printing to stdout
     # SIGPIPE is throwing exception when piping output to other tools
     # like head. => http://docs.python.org/library/signal.html
     # use a try - except clause to handle
     try:
-        for id in ids:
-            outfileobj.write('>{}\n{}\n'.format(id, d2[id]))
+        for seq,id in d.items():
+            outfileobj.write('>{}\n{}\n'.format(id, seq))
         # flush output here to force SIGPIPE to be triggered
         # while inside this try block.
         sys.stdout.flush()

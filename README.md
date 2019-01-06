@@ -13,5 +13,5 @@ Sequencing adapters and contaminants collection from different tools for easy do
 Read all fasta adapter files. Make a file with unique sequences. Id will be the first occurrence.
 
 ```bash
-python union.py atropos/xxx/sequencing_adapters.fa bbmap/xxx/adapters.fa fastqc/xxx/contaminant_list.fa > adapters_union.fa
+python union.py bbmap/xxx/adapters.fa atropos/xxx/sequencing_adapters.fa fastqc/xxx/contaminant_list.fa > adapters_union.fa
 ```
